@@ -1,8 +1,6 @@
 //线性表的基本操作
 //张家宁 
 
-#include<cstdio>
-
 typedef int DataType;
 
 const int LISTSIZE=100;
