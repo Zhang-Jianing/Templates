@@ -1,6 +1,9 @@
 //线性表的基本操作
 //张家宁 
 
+#include<cstdio>
+#include<iostream> 
+
 typedef int DataType;
 
 const int LISTSIZE=100;
@@ -79,9 +82,44 @@ bool DeleteList(SeqList *list,int i)
 	return false;
 }
 
+//将两个线性表合并
+void unionList(SeqList *a,SeqList *b)
+{
+	if (a->nLength+b->nLength>LISTSIZE)
+		return;
+	for (int i=0;i<b->nLength;i++)
+	{
+		DataType e=b->data[i];
+		if (locateNode(a,e)==-1)
+			insert(a,a->nLength,e); 
+	}
+} 
+
+//将线性表倒置 
+void reverseList(SeqList *list)
+{
+	for (int i=0;i<list->nLength/2;i++)
+	{
+		DataType t=list->data[i];
+		list->data[i]=list->data[list->nLength-1-i];
+		list->data[list->nLength-1-i]=t;
+	}
+}
+
+//线性表遍历
+void print(DataType d)
+{
+	std::cout<<d<<std::endl;
+}
+void travel(SeqList *list,void(*visitFun)(DataType))
+{
+	for (int i=0;i<list->nLength;i++)
+		visitFun(list->data[i]);
+} 
+
 int main()
 {
-	SeqList sl;
+	SeqList sl,a,b;
 	initList(&sl);
 	bool empty=listEmpty(&sl);
 	clearList(&sl);
@@ -89,6 +127,8 @@ int main()
 	int index=locateNode(&sl,6); 
 	bool insert_flag=insert(&sl,5,10);
 	bool delete_flag=DeleteList(&sl,2);
+	unionList(&a,&b);
+	travel(&sl,print);
 	//...
 	return 0;
 }
